@@ -10,9 +10,10 @@ import main.java.talePath.TalePath;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class TaleMachine {
     private ClearingConsole clearingConsole = new ClearingConsoleImpl();
@@ -27,19 +28,30 @@ public class TaleMachine {
         return talePath.resolve(directory);
     }
 
-    private static boolean txtExtention(Path path) {
+    private static boolean imageExtention(Path path) {
         return path.toString().endsWith(".txt");
+    }
+
+    private static boolean gameExtention(Path path) {
+        return path.toString().endsWith(".game");
     }
 
     public void tellTheTale() {
         Map<Integer, ShowingObjectInterface> objectMap = null;
-        Path first = null;
+        Path gamePath = null;
+        Path imagePath = null;
         while (thereIsDirectory(talePath)) {
             try {
-                Optional<Path> firstOptional = Files.walk(talePath, 1)
-                        .filter(TaleMachine::txtExtention).findFirst();
-                if (firstOptional.isPresent()) {
-                    first = firstOptional.get();
+                List<Path> twoPaths = Files.walk(talePath, 1)
+                        .filter(path -> imageExtention(path) || gameExtention(path)).collect(Collectors.toList());
+                if (!twoPaths.isEmpty()) {
+                    for (Path p : twoPaths) {
+                        if (imageExtention(p)) {
+                            imagePath = p;
+                        } else if (gameExtention(p)) {
+                            gamePath = p;
+                        }
+                    }
                 } else {
                     scanner.close();
                     return;
@@ -47,7 +59,8 @@ public class TaleMachine {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            objectMap = GivingListOfObjects.getObjectMap(first);
+
+            objectMap = GivingListOfObjects.getTextMap(gamePath, imagePath);
             for (ShowingObjectInterface value : objectMap.values()) {
                 value.show();
             }
@@ -56,6 +69,5 @@ public class TaleMachine {
             clearingConsole.clearConsole();
         }
         scanner.close();
-
     }
 }

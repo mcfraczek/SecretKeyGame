@@ -15,4 +15,10 @@ public class SleepMarker extends Marker {
         }
     }
 
+    @Override
+    public String toString() {
+        return "SleepMarker{" +
+                "sleep=" + sleep +
+                "} ";
+    }
 }

@@ -12,4 +12,11 @@ public class Text extends LineObject {
     public void show() {
         System.out.println(text);
     }
+
+    @Override
+    public String toString() {
+        return "Text{" +
+                "text='" + text + '\'' +
+                "} ";
+    }
 }
