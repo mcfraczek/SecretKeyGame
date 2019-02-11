@@ -1,8 +1,10 @@
 package main.java.logic;
 
 
-import main.java.logic.services.objectServices.LineSleeepService;
-import main.java.logic.services.objectServices.MarkedObjectService;
+import main.java.logic.services.objectServices.markedLetter.MarkedLetterObjectService;
+import main.java.logic.services.objectServices.markedLetter.SingleLetterSleepService;
+import main.java.logic.services.objectServices.markedLine.LineSleeepServiceLine;
+import main.java.logic.services.objectServices.markedLine.MarkedLineObjectService;
 import main.java.logic.services.reading.PictureReadingService;
 import main.java.logic.services.reading.ReadingService;
 import main.java.logic.services.reading.TextReadingService;
@@ -32,7 +34,7 @@ public class GivingListOfObjects {
     }
 
     private static int checkForImageObjects(List<String> lines, Map<Integer, ShowingObjectInterface> map, int iteratorStart) {
-        MarkedObjectService lineSleeepService = new LineSleeepService();
+        MarkedLineObjectService lineSleeepService = new LineSleeepServiceLine();
 
         for (String line : lines) {
             if (lineSleeepService.thereIsAMark(line)) {
@@ -46,15 +48,22 @@ public class GivingListOfObjects {
     }
 
     private static int checkForGameObjects(List<String> lines, Map<Integer, ShowingObjectInterface> map, int iteratorStart) {
-        MarkedObjectService lineSleeepService = new LineSleeepService();
-
+        MarkedLineObjectService lineSleeepService = new LineSleeepServiceLine();
+        MarkedLetterObjectService singleLetterSleepService = new SingleLetterSleepService();
         for (String line : lines) {
-            if (lineSleeepService.thereIsAMark(line)) {
-                map.put(iteratorStart, lineSleeepService.changeMarkedIntoObject(line, iteratorStart));
-            } else {
+            if (singleLetterSleepService.thereIsAMark(line)) {
+                singleLetterSleepService.changeMarkedIntoObject(line, iteratorStart);
+//wziać linię, wiąć iterator i mapę, albo zwrócić kolekcje. Dodawać Obiekt, pomiędzy dodawać
+                //obiekt zwykłej linii. Nie mam innego pomysłu
+                iteratorStart++;
+            } else if (!lineSleeepService.thereIsAMark(line)) {
                 map.put(iteratorStart, new Text(line, iteratorStart));
+                iteratorStart++;
+
+            } else if (lineSleeepService.thereIsAMark(line)) {
+                map.put(iteratorStart, lineSleeepService.changeMarkedIntoObject(line, iteratorStart));
+                iteratorStart++;
             }
-            iteratorStart++;
         }
         return iteratorStart;
     }
