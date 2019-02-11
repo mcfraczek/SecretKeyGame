@@ -16,7 +16,7 @@ import java.util.TreeMap;
 
 public class GivingListOfObjects {
 
-    public static Map<Integer, ShowingObjectInterface> getTextMap(Path gamePath, Path imagePath) {
+    public static Map<Integer, ShowingObjectInterface> getObjectsMap(Path gamePath, Path imagePath) {
         Map<Integer, ShowingObjectInterface> map = new TreeMap<>();
 
         ReadingService imageReading = new PictureReadingService();

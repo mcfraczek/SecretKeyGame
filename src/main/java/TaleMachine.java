@@ -2,10 +2,8 @@ package main.java;
 
 
 import main.java.consoleClearing.ClearingConsole;
-import main.java.consoleClearing.ClearingConsoleImpl;
 import main.java.logic.GivingListOfObjects;
 import main.java.objects.interfaces.ShowingObjectInterface;
-import main.java.talePath.TalePath;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,9 +14,6 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class TaleMachine {
-    private ClearingConsole clearingConsole = new ClearingConsoleImpl();
-    private Path talePath = TalePath.getTalePath();
-    private Scanner scanner = new Scanner(System.in);
 
     private static boolean thereIsDirectory(Path talePath) {
         return !Files.notExists(talePath);
@@ -36,11 +31,12 @@ public class TaleMachine {
         return path.toString().endsWith(".game");
     }
 
-    public void tellTheTale() {
+    public static void tellTheTale(Path talePath, Scanner scanner, ClearingConsole clearingConsole) {
         Map<Integer, ShowingObjectInterface> objectMap = null;
         Path gamePath = null;
         Path imagePath = null;
         while (thereIsDirectory(talePath)) {
+            clearingConsole.clearConsole();
             try {
                 List<Path> twoPaths = Files.walk(talePath, 1)
                         .filter(path -> imageExtention(path) || gameExtention(path)).collect(Collectors.toList());
@@ -60,13 +56,12 @@ public class TaleMachine {
                 e.printStackTrace();
             }
 
-            objectMap = GivingListOfObjects.getTextMap(gamePath, imagePath);
-            for (ShowingObjectInterface value : objectMap.values()) {
-                value.show();
+            objectMap = GivingListOfObjects.getObjectsMap(gamePath, imagePath);
+            for (ShowingObjectInterface object : objectMap.values()) {
+                object.show();
             }
             String directory = scanner.next();
             talePath = changeTalePath(talePath, directory);
-            clearingConsole.clearConsole();
         }
         scanner.close();
     }
