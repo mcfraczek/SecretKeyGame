@@ -1,8 +1,7 @@
 package main.java.logic;
 
 
-import main.java.logic.services.objectServices.markedLetter.MarkedLetterObjectService;
-import main.java.logic.services.objectServices.markedLetter.SingleLetterSleepService;
+import main.java.logic.services.checkingForGameObjects.CheckingForGameObjects;
 import main.java.logic.services.objectServices.markedLine.LineSleeepServiceLine;
 import main.java.logic.services.objectServices.markedLine.MarkedLineObjectService;
 import main.java.logic.services.reading.PictureReadingService;
@@ -37,7 +36,7 @@ public class GivingListOfObjects {
         MarkedLineObjectService lineSleeepService = new LineSleeepServiceLine();
 
         for (String line : lines) {
-            if (lineSleeepService.thereIsAMark(line)) {
+            if (/*lineSleeepService.thereIsAMark(line)*/false) {
                 map.put(iteratorStart, lineSleeepService.changeMarkedIntoObject(line, iteratorStart));
             } else {
                 map.put(iteratorStart, new Text(line, iteratorStart));
@@ -48,22 +47,8 @@ public class GivingListOfObjects {
     }
 
     private static int checkForGameObjects(List<String> lines, Map<Integer, ShowingObjectInterface> map, int iteratorStart) {
-        MarkedLineObjectService lineSleeepService = new LineSleeepServiceLine();
-        MarkedLetterObjectService singleLetterSleepService = new SingleLetterSleepService();
         for (String line : lines) {
-            if (singleLetterSleepService.thereIsAMark(line)) {
-                singleLetterSleepService.changeMarkedIntoObject(line, iteratorStart);
-//wziać linię, wiąć iterator i mapę, albo zwrócić kolekcje. Dodawać Obiekt, pomiędzy dodawać
-                //obiekt zwykłej linii. Nie mam innego pomysłu
-                iteratorStart++;
-            } else if (!lineSleeepService.thereIsAMark(line)) {
-                map.put(iteratorStart, new Text(line, iteratorStart));
-                iteratorStart++;
-
-            } else if (lineSleeepService.thereIsAMark(line)) {
-                map.put(iteratorStart, lineSleeepService.changeMarkedIntoObject(line, iteratorStart));
-                iteratorStart++;
-            }
+            iteratorStart += CheckingForGameObjects.checkInLines(line, map, iteratorStart);
         }
         return iteratorStart;
     }

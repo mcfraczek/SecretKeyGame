@@ -10,7 +10,9 @@ import java.util.regex.Pattern;
 public class LineSleeepServiceLine implements MarkedLineObjectService {
     @Override
     public boolean thereIsAMark(String line) {
-        return line.trim().matches("\\[(\\d+)\\]");
+        boolean matches = line.trim().matches("\\[(\\d+)\\]");
+        System.out.println(matches);
+        return matches;
     }
 
     public ShowingObjectInterface changeMarkedIntoObject(String line, int lineNumber) {
