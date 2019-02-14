@@ -23,21 +23,28 @@ public class TaleMachine {
 
     public static void tellTheTale(Path talePath, Scanner scanner, ClearingConsole clearingConsole) {
         Map<Integer, ShowingObjectInterface> objectMap = null;
-
+        boolean back = false;
         while (thereIsDirectory(talePath)) {
+            Path gamePath = null;
+            Path imagePath = null;
             clearingConsole.clearConsole();
             PathEstabishing pathEstabishing = new PathEstabishing(talePath).invoke();
-            Path gamePath = pathEstabishing.getGamePath();
-            Path imagePath = pathEstabishing.getImagePath();
+            if (!back) {
+                gamePath = pathEstabishing.getGamePath();
+            }
+            imagePath = pathEstabishing.getImagePath();
             objectMap = GivingListOfObjects.getObjectsMap(gamePath, imagePath);
             for (ShowingObjectInterface object : objectMap.values()) {
                 object.show();
             }
-            String directory = scanner.next();
-            talePath = changeTalePath(talePath, directory);
+            String answer = scanner.next();
+            if (answer.trim().equals("back")) {
+                talePath = talePath.getParent();
+                back = true;
+                continue;
+            }
+            talePath = changeTalePath(talePath, answer);
         }
         scanner.close();
     }
-
-
 }

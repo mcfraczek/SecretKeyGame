@@ -32,8 +32,6 @@ public class PathEstabishing {
     }
 
     public PathEstabishing invoke() {
-        gamePath = null;
-        imagePath = null;
         try {
             List<Path> twoPaths = Files.walk(talePath, 1)
                     .filter(path -> imageExtention(path) || gameExtention(path))
