@@ -1,7 +1,6 @@
 package main.java.logic;
 
 
-import main.java.logic.services.checkingForGameObjects.CheckingForGameObjects;
 import main.java.logic.services.objectServices.markedLine.LineSleeepServiceLine;
 import main.java.logic.services.objectServices.markedLine.MarkedLineObjectService;
 import main.java.logic.services.reading.PictureReadingService;
@@ -19,16 +18,20 @@ public class GivingListOfObjects {
 
     public static Map<Integer, ShowingObjectInterface> getObjectsMap(Path gamePath, Path imagePath) {
         Map<Integer, ShowingObjectInterface> map = new TreeMap<>();
+        List<String> imageLines = null;
+        List<String> gameLines = null;
 
         ReadingService imageReading = new PictureReadingService();
         ReadingService gameReading = new TextReadingService();
-
-        List<String> imageLines = imageReading.read(imagePath);
-        List<String> gameLines = gameReading.read(gamePath);
-
         int iteratorStart = 0;
-        checkForGameObjects(gameLines, map, checkForImageObjects(imageLines, map, iteratorStart));
-
+        if (imagePath != null) {
+            imageLines = imageReading.read(imagePath);
+            iteratorStart = checkForImageObjects(imageLines, map, iteratorStart);
+        }
+        if (gamePath != null) {
+            gameLines = gameReading.read(gamePath);
+            iteratorStart = checkForGameObjects(gameLines, map, iteratorStart);
+        }
         return map;
     }
 
@@ -36,7 +39,7 @@ public class GivingListOfObjects {
         MarkedLineObjectService lineSleeepService = new LineSleeepServiceLine();
 
         for (String line : lines) {
-            if (/*lineSleeepService.thereIsAMark(line)*/false) {
+            if (lineSleeepService.thereIsAMark(line)) {
                 map.put(iteratorStart, lineSleeepService.changeMarkedIntoObject(line, iteratorStart));
             } else {
                 map.put(iteratorStart, new Text(line, iteratorStart));
@@ -47,8 +50,15 @@ public class GivingListOfObjects {
     }
 
     private static int checkForGameObjects(List<String> lines, Map<Integer, ShowingObjectInterface> map, int iteratorStart) {
+        MarkedLineObjectService lineSleeepService = new LineSleeepServiceLine();
         for (String line : lines) {
-            iteratorStart += CheckingForGameObjects.checkInLines(line, map, iteratorStart);
+            if (lineSleeepService.thereIsAMark(line)) {
+                map.put(iteratorStart, lineSleeepService.changeMarkedIntoObject(line, iteratorStart));
+                iteratorStart++;
+            } else { // normal line
+                map.put(iteratorStart, new Text(line, iteratorStart));
+                iteratorStart++;
+            }
         }
         return iteratorStart;
     }
