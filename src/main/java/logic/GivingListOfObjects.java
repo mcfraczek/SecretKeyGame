@@ -35,13 +35,13 @@ public class GivingListOfObjects {
         }
         if (choicePath != null) {
             choiceLines = gameReading.read(choicePath);
-            iteratorStart = chechForChoiceObjects(choiceLines, map, iteratorStart);
+            iteratorStart = checkForChoiceObjects(choiceLines, map, iteratorStart);
         }
 
         return map;
     }
 
-    private static int chechForChoiceObjects(List<String> choiceLines, Map<Integer, ShowingObjectInterface> map, int iteratorStart) {
+    private static int checkForChoiceObjects(List<String> choiceLines, Map<Integer, ShowingObjectInterface> map, int iteratorStart) {
         return checkForGameObjects(choiceLines, map, iteratorStart);
     }
 
