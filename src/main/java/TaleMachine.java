@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class TaleMachine {
+    private static final String SAVE = "save.save";
 
     private static boolean thereIsDirectory(Path talePath) {
         return !Files.notExists(talePath);
@@ -27,13 +28,17 @@ public class TaleMachine {
         while (thereIsDirectory(talePath)) {
             Path gamePath = null;
             Path imagePath = null;
+            Path choicePath = null;
             clearingConsole.clearConsole();
             PathEstabishing pathEstabishing = new PathEstabishing(talePath).invoke();
             if (!back) {
                 gamePath = pathEstabishing.getGamePath();
             }
             imagePath = pathEstabishing.getImagePath();
-            objectMap = GivingListOfObjects.getObjectsMap(gamePath, imagePath);
+            choicePath = pathEstabishing.getChoicePath();
+
+            objectMap = GivingListOfObjects.getObjectsMap(gamePath, imagePath, choicePath);
+
             for (ShowingObjectInterface object : objectMap.values()) {
                 object.show();
             }

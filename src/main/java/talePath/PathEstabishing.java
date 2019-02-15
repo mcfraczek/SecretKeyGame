@@ -10,17 +10,26 @@ public class PathEstabishing {
     private Path talePath;
     private Path gamePath;
     private Path imagePath;
+    private Path choicePath;
 
     public PathEstabishing(Path talePath) {
         this.talePath = talePath;
     }
 
     private static boolean imageExtention(Path path) {
-        return path.toString().endsWith(".txt");
+        return path.toString().endsWith(".image");
     }
 
     private static boolean gameExtention(Path path) {
         return path.toString().endsWith(".game");
+    }
+
+    private static boolean choiceExtention(Path path) {
+        return path.toString().endsWith(".choice");
+    }
+
+    public Path getChoicePath() {
+        return choicePath;
     }
 
     public Path getGamePath() {
@@ -34,13 +43,15 @@ public class PathEstabishing {
     public PathEstabishing invoke() {
         try {
             List<Path> twoPaths = Files.walk(talePath, 1)
-                    .filter(path -> imageExtention(path) || gameExtention(path))
+                    .filter(path -> imageExtention(path) || gameExtention(path) || choiceExtention(path))
                     .collect(Collectors.toList());
             for (Path p : twoPaths) {
                 if (imageExtention(p)) {
                     imagePath = p;
                 } else if (gameExtention(p)) {
                     gamePath = p;
+                } else if (choiceExtention(p)) {
+                    choicePath = p;
                 }
             }
         } catch (IOException e) {

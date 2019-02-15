@@ -16,10 +16,11 @@ import java.util.TreeMap;
 
 public class GivingListOfObjects {
 
-    public static Map<Integer, ShowingObjectInterface> getObjectsMap(Path gamePath, Path imagePath) {
+    public static Map<Integer, ShowingObjectInterface> getObjectsMap(Path gamePath, Path imagePath, Path choicePath) {
         Map<Integer, ShowingObjectInterface> map = new TreeMap<>();
         List<String> imageLines = null;
         List<String> gameLines = null;
+        List<String> choiceLines = null;
 
         ReadingService imageReading = new PictureReadingService();
         ReadingService gameReading = new TextReadingService();
@@ -32,7 +33,16 @@ public class GivingListOfObjects {
             gameLines = gameReading.read(gamePath);
             iteratorStart = checkForGameObjects(gameLines, map, iteratorStart);
         }
+        if (choicePath != null) {
+            choiceLines = gameReading.read(choicePath);
+            iteratorStart = chechForChoiceObjects(choiceLines, map, iteratorStart);
+        }
+
         return map;
+    }
+
+    private static int chechForChoiceObjects(List<String> choiceLines, Map<Integer, ShowingObjectInterface> map, int iteratorStart) {
+        return checkForGameObjects(choiceLines, map, iteratorStart);
     }
 
     private static int checkForImageObjects(List<String> lines, Map<Integer, ShowingObjectInterface> map, int iteratorStart) {
