@@ -1,6 +1,8 @@
 package main.java.logic;
 
 
+import main.java.logic.services.objectServices.markedLetter.MarkedLetterService;
+import main.java.logic.services.objectServices.markedLetter.WordSleepSercice;
 import main.java.logic.services.objectServices.markedLine.LineSleeepServiceLine;
 import main.java.logic.services.objectServices.markedLine.MarkedLineObjectService;
 import main.java.logic.services.reading.PictureReadingService;
@@ -73,10 +75,18 @@ public class GivingListOfObjects {
 
     private static int checkForGameObjects(List<String> lines, Map<Integer, ShowingObjectInterface> map, int iteratorStart) {
         MarkedLineObjectService lineSleeepService = new LineSleeepServiceLine();
+        MarkedLetterService wordSleepSercice = new WordSleepSercice();
         for (String line : lines) {
             if (lineSleeepService.thereIsAMark(line)) {
                 map.put(iteratorStart, lineSleeepService.changeMarkedIntoObject(line, iteratorStart));
                 iteratorStart++;
+            } else if (wordSleepSercice.thereIsAMark(line)) {
+                List<ShowingObjectInterface> list = wordSleepSercice.changeMarkedIntoObject(line, iteratorStart);
+//wyświetlaniem zajmą się obiekty. Tu muszę wylko zadbać o zwiększenie iteratora
+                for (ShowingObjectInterface objectInterface : list) {
+                    map.put(iteratorStart, objectInterface);
+                    iteratorStart++;
+                }
             } else { // normal line
                 map.put(iteratorStart, new Game(line, iteratorStart));
                 iteratorStart++;

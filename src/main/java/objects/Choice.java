@@ -1,5 +1,7 @@
 package main.java.objects;
 
+import main.java.objects.interfaces.LineObject;
+
 public class Choice extends LineObject {
     private String text;
 

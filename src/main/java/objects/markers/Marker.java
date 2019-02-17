@@ -1,7 +1,7 @@
 package main.java.objects.markers;
 
 
-import main.java.objects.LineObject;
+import main.java.objects.interfaces.LineObject;
 
 public abstract class Marker extends LineObject {
     protected Long sleep;

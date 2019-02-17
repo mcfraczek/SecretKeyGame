@@ -1,7 +1,5 @@
-package main.java.objects;
+package main.java.objects.interfaces;
 
-
-import main.java.objects.interfaces.ShowingObjectInterface;
 
 public abstract class LineObject implements ShowingObjectInterface {
     protected int line;
