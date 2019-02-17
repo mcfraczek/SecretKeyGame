@@ -12,6 +12,7 @@ import main.java.objects.Choice;
 import main.java.objects.Game;
 import main.java.objects.Image;
 import main.java.objects.interfaces.ShowingObjectInterface;
+import main.java.panel.Panel;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -92,5 +93,12 @@ public class GivingListOfObjects {
             }
         }
         return iteratorStart;
+    }
+
+    public static Map<Integer, ShowingObjectInterface> getPanel() {
+        Map<Integer, ShowingObjectInterface> map = new TreeMap<>();
+        List<String> lines = Panel.INSTANCE.getPanel();
+        checkForImageObjects(lines, map, 0);
+        return map;
     }
 }

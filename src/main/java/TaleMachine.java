@@ -28,6 +28,10 @@ public class TaleMachine {
             Path imagePath = null;
             Path choicePath = null;
             clearingConsole.clearConsole();
+            objectMap = GivingListOfObjects.getPanel();
+            for (ShowingObjectInterface object : objectMap.values()) {
+                object.show();
+            }
             PathEstabishing pathEstabishing = new PathEstabishing(talePath).invoke();
             if (!back) {
                 gamePath = pathEstabishing.getGamePath();
@@ -50,4 +54,5 @@ public class TaleMachine {
         }
         scanner.close();
     }
+
 }

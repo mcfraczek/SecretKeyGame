@@ -6,9 +6,9 @@ import java.nio.file.Paths;
 
 public class TalePath {
     private static String taleDirectory = "tale";
+    public static final Path userDir = Paths.get(System.getProperty("user.dir")).getParent().getParent();
 
     public static Path getTalePath() {
-        Path thisClassDir = Paths.get(System.getProperty("user.dir"));
-        return thisClassDir.resolve(taleDirectory);
+        return userDir.resolve(taleDirectory);
     }
 }
