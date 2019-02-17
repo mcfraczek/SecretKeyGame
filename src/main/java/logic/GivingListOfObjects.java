@@ -6,6 +6,7 @@ import main.java.logic.services.objectServices.markedLine.MarkedLineObjectServic
 import main.java.logic.services.reading.PictureReadingService;
 import main.java.logic.services.reading.ReadingService;
 import main.java.logic.services.reading.TextReadingService;
+import main.java.objects.Picture;
 import main.java.objects.Text;
 import main.java.objects.interfaces.ShowingObjectInterface;
 
@@ -52,7 +53,7 @@ public class GivingListOfObjects {
             if (lineSleeepService.thereIsAMark(line)) {
                 map.put(iteratorStart, lineSleeepService.changeMarkedIntoObject(line, iteratorStart));
             } else {
-                map.put(iteratorStart, new Text(line, iteratorStart));
+                map.put(iteratorStart, new Picture(line, iteratorStart));
             }
             iteratorStart++;
         }

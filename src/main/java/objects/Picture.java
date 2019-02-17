@@ -1,17 +1,22 @@
 package main.java.objects;
 
-import java.util.List;
-
 public class Picture extends LineObject{
-    private List<String> stringList;
+    private String text;
 
-    public Picture(List<String> stringList, int line) {
-        this.stringList = stringList;
+    public Picture(String text, int line) {
+        this.text = text;
         this.line = line;
     }
 
     @Override
     public void show() {
+        System.out.println(text);
+    }
 
+    @Override
+    public String toString() {
+        return "Text{" +
+                "text='" + text + '\'' +
+                "} ";
     }
 }
