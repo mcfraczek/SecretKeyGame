@@ -1,9 +1,9 @@
 package main.java.objects;
 
-public class Text extends LineObject {
+public class Game extends LineObject {
     private String text;
 
-    public Text(String text, int line) {
+    public Game(String text, int line) {
         this.text = text;
         this.line = line;
     }
@@ -15,7 +15,7 @@ public class Text extends LineObject {
 
     @Override
     public String toString() {
-        return "Text{" +
+        return "Game{" +
                 "text='" + text + '\'' +
                 "} ";
     }

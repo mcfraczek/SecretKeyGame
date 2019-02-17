@@ -6,8 +6,9 @@ import main.java.logic.services.objectServices.markedLine.MarkedLineObjectServic
 import main.java.logic.services.reading.PictureReadingService;
 import main.java.logic.services.reading.ReadingService;
 import main.java.logic.services.reading.TextReadingService;
-import main.java.objects.Picture;
-import main.java.objects.Text;
+import main.java.objects.Choice;
+import main.java.objects.Game;
+import main.java.objects.Image;
 import main.java.objects.interfaces.ShowingObjectInterface;
 
 import java.nio.file.Path;
@@ -43,7 +44,17 @@ public class GivingListOfObjects {
     }
 
     private static int checkForChoiceObjects(List<String> choiceLines, Map<Integer, ShowingObjectInterface> map, int iteratorStart) {
-        return checkForGameObjects(choiceLines, map, iteratorStart);
+        MarkedLineObjectService lineSleeepService = new LineSleeepServiceLine();
+
+        for (String line : choiceLines) {
+            if (lineSleeepService.thereIsAMark(line)) {
+                map.put(iteratorStart, lineSleeepService.changeMarkedIntoObject(line, iteratorStart));
+            } else {
+                map.put(iteratorStart, new Choice(line, iteratorStart));
+            }
+            iteratorStart++;
+        }
+        return iteratorStart;
     }
 
     private static int checkForImageObjects(List<String> lines, Map<Integer, ShowingObjectInterface> map, int iteratorStart) {
@@ -53,7 +64,7 @@ public class GivingListOfObjects {
             if (lineSleeepService.thereIsAMark(line)) {
                 map.put(iteratorStart, lineSleeepService.changeMarkedIntoObject(line, iteratorStart));
             } else {
-                map.put(iteratorStart, new Picture(line, iteratorStart));
+                map.put(iteratorStart, new Image(line, iteratorStart));
             }
             iteratorStart++;
         }
@@ -67,7 +78,7 @@ public class GivingListOfObjects {
                 map.put(iteratorStart, lineSleeepService.changeMarkedIntoObject(line, iteratorStart));
                 iteratorStart++;
             } else { // normal line
-                map.put(iteratorStart, new Text(line, iteratorStart));
+                map.put(iteratorStart, new Game(line, iteratorStart));
                 iteratorStart++;
             }
         }

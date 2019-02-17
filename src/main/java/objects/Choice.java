@@ -1,9 +1,9 @@
 package main.java.objects;
 
-public class Picture extends LineObject{
+public class Choice extends LineObject {
     private String text;
 
-    public Picture(String text, int line) {
+    public Choice(String text, int line) {
         this.text = text;
         this.line = line;
     }
@@ -15,7 +15,7 @@ public class Picture extends LineObject{
 
     @Override
     public String toString() {
-        return "Text{" +
+        return "Choice{" +
                 "text='" + text + '\'' +
                 "} ";
     }

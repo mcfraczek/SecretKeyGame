@@ -14,7 +14,7 @@ public class CheckingForGameObjects {
 //            map.put(iteratorStart, lineSleeepService.changeMarkedIntoObject(line, iteratorStart));
 //            iteratorStart++;
 //        } else { // normal line
-//            map.put(iteratorStart, new Text(line, iteratorStart));
+//            map.put(iteratorStart, new Game(line, iteratorStart));
 //            iteratorStart++;
 //        }
     }

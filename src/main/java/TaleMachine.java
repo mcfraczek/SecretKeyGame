@@ -12,8 +12,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class TaleMachine {
-    private static final String SAVE = "save.save";
-
     private static boolean thereIsDirectory(Path talePath) {
         return !Files.notExists(talePath);
     }
