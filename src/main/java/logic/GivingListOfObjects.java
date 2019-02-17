@@ -82,7 +82,6 @@ public class GivingListOfObjects {
                 iteratorStart++;
             } else if (wordSleepSercice.thereIsAMark(line)) {
                 List<ShowingObjectInterface> list = wordSleepSercice.changeMarkedIntoObject(line, iteratorStart);
-//wyświetlaniem zajmą się obiekty. Tu muszę wylko zadbać o zwiększenie iteratora
                 for (ShowingObjectInterface objectInterface : list) {
                     map.put(iteratorStart, objectInterface);
                     iteratorStart++;

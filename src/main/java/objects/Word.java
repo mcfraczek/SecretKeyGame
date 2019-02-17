@@ -5,7 +5,7 @@ import main.java.objects.interfaces.SettingFirstWord;
 
 public class Word extends LineObject implements SettingFirstWord {
     private String word;
-    private boolean firstWordInLine;
+    private boolean lastWordInLine;
 
     public Word(String word, int line) {
         this.word = word;
@@ -13,18 +13,21 @@ public class Word extends LineObject implements SettingFirstWord {
     }
 
     @Override
-    public void thisIsFirstWord() {
-        this.firstWordInLine = true;
+    public void thisIsLastWord() {
+        this.lastWordInLine = true;
     }
 
     @Override
     public boolean getFirstWord() {
-        return firstWordInLine;
+        return lastWordInLine;
     }
 
     @Override
     public void show() {
-
+        System.out.print(word);
+        if (lastWordInLine) {
+            System.out.print("\n");
+        }
     }
 
 }

@@ -3,23 +3,46 @@ package main.java.objects.markers;
 import main.java.objects.interfaces.SettingFirstWord;
 
 public class TypewritterEffect extends Marker implements SettingFirstWord {
-    private boolean firstWordInLine;
+    private boolean lastWordInLine;
+    private String word;
 
-    public TypewritterEffect(Long sleep, int line) {
+    public TypewritterEffect(Long sleep, String word, int line) {
         super(sleep, line);
+        this.word = word;
     }
 
     @Override
-    public void thisIsFirstWord() {
-        this.firstWordInLine = true;
+    public void thisIsLastWord() {
+        this.lastWordInLine = true;
     }
 
     @Override
     public boolean getFirstWord() {
-        return firstWordInLine;
+        return lastWordInLine;
     }
 
     @Override
     public void show() {
+        if (word.isEmpty()) {
+            try {
+                Thread.sleep(sleep);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } else {
+            word.chars()
+                    .mapToObj(c -> String.valueOf((char) c))
+                    .forEach(w -> {
+                        try {
+                            Thread.sleep(sleep);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        System.out.print(w);
+                    });
+            if (lastWordInLine) {
+                System.out.print("\n");
+            }
+        }
     }
 }

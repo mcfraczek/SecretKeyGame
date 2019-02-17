@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 public class WordSleepSercice implements MarkedLetterService {
     @Override
     public boolean thereIsAMark(String line) {
-        Pattern pattern = Pattern.compile("<t=\\d+>\\w+<>");
+        Pattern pattern = Pattern.compile("<t=\\d+>.*?<>");
         Matcher matcher = pattern.matcher(line);
         while (matcher.find()) {
             if (matcher.group() != null) {
@@ -29,23 +29,28 @@ public class WordSleepSercice implements MarkedLetterService {
         List<ShowingObjectInterface> objectsList = new ArrayList<>();
         List<String> strings = Stream.of(line.split("#")
         ).collect(Collectors.toList());
+
         for (int i = 0; i < strings.size(); i++) {
-            if (strings.get(i).matches("<t=\\d+>\\w+<>")) {
-                Pattern pattern = Pattern.compile("<t=(\\d+)>\\w+<>");
-                Matcher matcher = pattern.matcher(line);
+            if (strings.get(i).matches("<t=\\d+>.*?<>")) {
+                Pattern pattern = Pattern.compile("<t=(\\d+)>(.*?)<>");
+                Matcher matcher = pattern.matcher(strings.get(i));
+
                 long howLongToSleep = 0;
+                String word = null;
+
                 while (matcher.find()) {
                     howLongToSleep = Long.parseLong(matcher.group(1));
+                    word = matcher.group(2);
                 }
-                TypewritterEffect typewritterEffect = new TypewritterEffect(howLongToSleep, iteratorStart);
-                if (i == 0) {
-                    typewritterEffect.thisIsFirstWord();
+                TypewritterEffect typewritterEffect = new TypewritterEffect(howLongToSleep, word, iteratorStart);
+                if (i == strings.size() - 1) {
+                    typewritterEffect.thisIsLastWord();
                 }
                 objectsList.add(typewritterEffect);
             } else {
                 Word word = new Word(strings.get(i), iteratorStart);
-                if (i == 0) {
-                    word.thisIsFirstWord();
+                if (i == strings.size() - 1) {
+                    word.thisIsLastWord();
                 }
                 objectsList.add(word);
             }
