@@ -3,6 +3,7 @@ package main.java;
 
 import main.java.consoleClearing.ClearingConsole;
 import main.java.logic.GivingListOfObjects;
+import main.java.logic.services.objectServices.alreringLine.IntroducingUser;
 import main.java.objects.interfaces.ShowingObjectInterface;
 import main.java.talePath.PathEstabishing;
 
@@ -23,6 +24,7 @@ public class TaleMachine {
     public static void tellTheTale(Path talePath, Scanner scanner, ClearingConsole clearingConsole) {
         Map<Integer, ShowingObjectInterface> objectMap = null;
         boolean back = false;
+        IntroducingUser.introduceUser(scanner);
         while (thereIsDirectory(talePath)) {
             Path gamePath = null;
             Path imagePath = null;

@@ -1,6 +1,8 @@
 package main.java.logic;
 
 
+import main.java.logic.services.objectServices.ShowingUserService;
+import main.java.logic.services.objectServices.alreringLine.AlteringLineService;
 import main.java.logic.services.objectServices.markedLetter.MarkedLetterService;
 import main.java.logic.services.objectServices.markedLetter.WordSleepSercice;
 import main.java.logic.services.objectServices.markedLine.LineSleeepServiceLine;
@@ -77,7 +79,11 @@ public class GivingListOfObjects {
     private static int checkForGameObjects(List<String> lines, Map<Integer, ShowingObjectInterface> map, int iteratorStart) {
         MarkedLineObjectService lineSleeepService = new LineSleeepServiceLine();
         MarkedLetterService wordSleepSercice = new WordSleepSercice();
+        AlteringLineService alteringLineService = new ShowingUserService();
         for (String line : lines) {
+            if (alteringLineService.thereIsAMark(line)) {
+                line = alteringLineService.alterLine(line);
+            }
             if (lineSleeepService.thereIsAMark(line)) {
                 map.put(iteratorStart, lineSleeepService.changeMarkedIntoObject(line, iteratorStart));
                 iteratorStart++;
@@ -98,7 +104,7 @@ public class GivingListOfObjects {
     public static Map<Integer, ShowingObjectInterface> getPanel() {
         Map<Integer, ShowingObjectInterface> map = new TreeMap<>();
         List<String> lines = Panel.INSTANCE.getPanel();
-        checkForImageObjects(lines, map, 0);
+        checkForGameObjects(lines, map, 0);
         return map;
     }
 }

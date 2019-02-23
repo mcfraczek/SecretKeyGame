@@ -15,13 +15,7 @@ public class WordSleepSercice implements MarkedLetterService {
     @Override
     public boolean thereIsAMark(String line) {
         Pattern pattern = Pattern.compile("<t=\\d+>.*?<>");
-        Matcher matcher = pattern.matcher(line);
-        while (matcher.find()) {
-            if (matcher.group() != null) {
-                return true;
-            }
-        }
-        return false;
+        return findThisPattern(line, pattern);
     }
 
     @Override
