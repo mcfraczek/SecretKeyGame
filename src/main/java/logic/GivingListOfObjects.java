@@ -77,18 +77,18 @@ public class GivingListOfObjects {
     }
 
     private static int checkForGameObjects(List<String> lines, Map<Integer, ShowingObjectInterface> map, int iteratorStart) {
-        MarkedLineObjectService lineSleeepService = new LineSleeepServiceLine();
-        MarkedLetterService wordSleepSercice = new WordSleepSercice();
+        MarkedLineObjectService lineSleepService = new LineSleeepServiceLine();
+        MarkedLetterService wordSleepService = new WordSleepSercice();
         AlteringLineService alteringLineService = new ShowingUserService();
         for (String line : lines) {
             if (alteringLineService.thereIsAMark(line)) {
                 line = alteringLineService.alterLine(line);
             }
-            if (lineSleeepService.thereIsAMark(line)) {
-                map.put(iteratorStart, lineSleeepService.changeMarkedIntoObject(line, iteratorStart));
+            if (lineSleepService.thereIsAMark(line)) {
+                map.put(iteratorStart, lineSleepService.changeMarkedIntoObject(line, iteratorStart));
                 iteratorStart++;
-            } else if (wordSleepSercice.thereIsAMark(line)) {
-                List<ShowingObjectInterface> list = wordSleepSercice.changeMarkedIntoObject(line, iteratorStart);
+            } else if (wordSleepService.thereIsAMark(line)) {
+                List<ShowingObjectInterface> list = wordSleepService.changeMarkedIntoObject(line, iteratorStart);
                 for (ShowingObjectInterface objectInterface : list) {
                     map.put(iteratorStart, objectInterface);
                     iteratorStart++;

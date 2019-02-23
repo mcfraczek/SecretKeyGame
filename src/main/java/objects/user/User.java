@@ -8,7 +8,7 @@ public class User {
         this.name = name;
     }
 
-    public static User getInstance(String name) {
+    public static User setInstance(String name) {
         if (INSTANCE == null) {
             synchronized (User.class) {
                 if (INSTANCE == null) {

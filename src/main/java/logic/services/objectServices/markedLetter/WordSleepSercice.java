@@ -1,5 +1,7 @@
 package main.java.logic.services.objectServices.markedLetter;
 
+import main.java.logic.services.objectServices.markedInterfaces.GeneralMarkService;
+import main.java.logic.services.objectServices.patternFactory.PatternFactory;
 import main.java.objects.Word;
 import main.java.objects.interfaces.ShowingObjectInterface;
 import main.java.objects.markers.TypewritterEffect;
@@ -14,8 +16,8 @@ import java.util.stream.Stream;
 public class WordSleepSercice implements MarkedLetterService {
     @Override
     public boolean thereIsAMark(String line) {
-        Pattern pattern = Pattern.compile("<t=\\d+>.*?<>");
-        return findThisPattern(line, pattern);
+        Pattern pattern = PatternFactory.WORD_SLEEP.getGeneral();
+        return GeneralMarkService.findThisPattern(line, pattern);
     }
 
     @Override
@@ -25,8 +27,8 @@ public class WordSleepSercice implements MarkedLetterService {
         ).collect(Collectors.toList());
 
         for (int i = 0; i < strings.size(); i++) {
-            if (strings.get(i).matches("<t=\\d+>.*?<>")) {
-                Pattern pattern = Pattern.compile("<t=(\\d+)>(.*?)<>");
+            if (strings.get(i).matches(PatternFactory.WORD_SLEEP.getGeneral().toString())) {
+                Pattern pattern = PatternFactory.WORD_SLEEP.getDetails();
                 Matcher matcher = pattern.matcher(strings.get(i));
 
                 long howLongToSleep = 0;
