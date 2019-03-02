@@ -6,14 +6,14 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 public class ConfigurationClass {
     @XStreamAlias("unable_threed_sleep")
     private final boolean unableThreedSleep;
-    @XStreamAlias("disable_simple_questions")
-    private final boolean disableSimpleQuestions;
+    @XStreamAlias("back_brings_everything")
+    private final boolean backBringsEverything;
     @XStreamAlias("start_from_this_file")
     private final String startFromThisFile;
 
-    public ConfigurationClass(boolean unableThreedSleep, boolean disableSimpleQuestions, String startFromThisFile) {
+    public ConfigurationClass(boolean unableThreedSleep, boolean backBringsEverything, String startFromThisFile) {
         this.unableThreedSleep = unableThreedSleep;
-        this.disableSimpleQuestions = disableSimpleQuestions;
+        this.backBringsEverything = backBringsEverything;
         this.startFromThisFile = startFromThisFile;
     }
 
@@ -21,11 +21,12 @@ public class ConfigurationClass {
         return unableThreedSleep;
     }
 
-    public boolean isDisableSimpleQuestions() {
-        return disableSimpleQuestions;
-    }
 
     public String getStartFromThisFile() {
         return startFromThisFile;
+    }
+
+    public boolean isBackBringsEverything() {
+        return backBringsEverything;
     }
 }

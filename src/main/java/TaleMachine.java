@@ -39,7 +39,7 @@ public class TaleMachine {
                 object.show();
             }
             PathEstabishing pathEstabishing = new PathEstabishing(talePath).invoke();
-            if (!back) {
+            if (!back || Configuration.INSTANCE.getConfigurationClass().isBackBringsEverything()) {
                 gamePath = pathEstabishing.getGamePath();
             }
             imagePath = pathEstabishing.getImagePath();
