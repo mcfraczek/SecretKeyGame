@@ -1,6 +1,7 @@
 package main.java;
 
 
+import main.java.configuration.Configuration;
 import main.java.consoleClearing.ClearingConsole;
 import main.java.logic.GivingListOfObjects;
 import main.java.logic.services.objectServices.alreringLine.IntroducingUser;
@@ -25,6 +26,9 @@ public class TaleMachine {
         Map<Integer, ShowingObjectInterface> objectMap = null;
         boolean back = false;
         IntroducingUser.introduceUser(scanner);
+        if (!Configuration.INSTANCE.getConfigurationClass().getStartFromThisFile().equals("default")) {
+            talePath = PathEstabishing.setTalePathFromConfigurationFile();
+        }
         while (thereIsDirectory(talePath)) {
             Path gamePath = null;
             Path imagePath = null;

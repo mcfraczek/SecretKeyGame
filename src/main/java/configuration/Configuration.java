@@ -8,23 +8,23 @@ import java.io.File;
 public enum Configuration {
     INSTANCE;
 
-    private ConfigurationFile configurationFile;
+    private ConfigurationClass configurationClass;
 
     Configuration() {
-        this.configurationFile = getConfiguration();
+        this.configurationClass = getConfiguration();
     }
 
-    private ConfigurationFile getConfiguration() {
-        Class<?>[] classes = new Class[]{ConfigurationFile.class};
+    private ConfigurationClass getConfiguration() {
+        Class<?>[] classes = new Class[]{ConfigurationClass.class};
         XStream xStream = new XStream();
         XStream.setupDefaultSecurity(xStream);
         xStream.allowTypes(classes);
-        xStream.processAnnotations(ConfigurationFile.class);
+        xStream.processAnnotations(ConfigurationClass.class);
         File configurationFile = TalePath.getTalePath().resolve("configuration.xml").toFile();
-        return (ConfigurationFile) xStream.fromXML(configurationFile);
+        return (ConfigurationClass) xStream.fromXML(configurationFile);
     }
 
-    public ConfigurationFile getConfigurationFile() {
-        return configurationFile;
+    public ConfigurationClass getConfigurationClass() {
+        return configurationClass;
     }
 }

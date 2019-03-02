@@ -1,9 +1,12 @@
 package main.java.talePath;
 
+import main.java.configuration.Configuration;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class PathEstabishing {
@@ -26,6 +29,23 @@ public class PathEstabishing {
 
     private static boolean choiceExtention(Path path) {
         return path.toString().endsWith(".choice");
+    }
+
+    public static Path setTalePathFromConfigurationFile() {
+        String startFrom = Configuration.INSTANCE.getConfigurationClass().getStartFromThisFile();
+        Path talePath = TalePath.getTalePath();
+        System.out.println(startFrom);
+        Path returningPath = null;
+        try {
+            Optional<Path> first = Files.walk(talePath).filter(p -> p.getFileName().toString().equals(startFrom)).findFirst();
+            if (first.isPresent()) {
+                returningPath = first.get().getParent();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return returningPath;
     }
 
     public Path getChoicePath() {
