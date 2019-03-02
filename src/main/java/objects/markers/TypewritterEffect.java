@@ -24,19 +24,24 @@ public class TypewritterEffect extends Marker implements SettingFirstWord {
     @Override
     public void show() {
         if (word.isEmpty()) {
-            try {
-                Thread.sleep(sleep);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if (configuration.isUnableThreedSleep()) {
+                try {
+                    Thread.sleep(sleep);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+
         } else {
             word.chars()
                     .mapToObj(c -> String.valueOf((char) c))
                     .forEach(w -> {
-                        try {
-                            Thread.sleep(sleep);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                        if (configuration.isUnableThreedSleep()) {
+                            try {
+                                Thread.sleep(sleep);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         }
                         System.out.print(w);
                     });

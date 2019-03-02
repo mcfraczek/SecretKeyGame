@@ -9,6 +9,6 @@ public class TalePath {
     public static final Path userDir = Paths.get(System.getProperty("user.dir"));
 
     public static Path getTalePath() {
-        return userDir.getParent().getParent().resolve(taleDirectory);
+        return userDir.resolve(taleDirectory);
     }
 }

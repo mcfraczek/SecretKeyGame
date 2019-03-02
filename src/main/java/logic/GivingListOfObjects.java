@@ -1,7 +1,6 @@
 package main.java.logic;
 
 
-import main.java.confuguration.Configuration;
 import main.java.logic.services.objectServices.ShowingUserService;
 import main.java.logic.services.objectServices.alreringLine.AlteringLineService;
 import main.java.logic.services.objectServices.markedLetter.MarkedLetterService;
@@ -53,7 +52,7 @@ public class GivingListOfObjects {
         MarkedLineObjectService lineSleeepService = new LineSleeepServiceLine();
 
         for (String line : choiceLines) {
-            if (Configuration.INSTANCE.getConfigurationFile().isUnableThreedSleep() && lineSleeepService.thereIsAMark(line)) {
+            if (lineSleeepService.thereIsAMark(line)) {
                 map.put(iteratorStart, lineSleeepService.changeMarkedIntoObject(line, iteratorStart));
             } else {
                 map.put(iteratorStart, new Choice(line, iteratorStart));
@@ -67,7 +66,7 @@ public class GivingListOfObjects {
         MarkedLineObjectService lineSleeepService = new LineSleeepServiceLine();
 
         for (String line : lines) {
-            if (Configuration.INSTANCE.getConfigurationFile().isUnableThreedSleep() && lineSleeepService.thereIsAMark(line)) {
+            if (lineSleeepService.thereIsAMark(line)) {
                 map.put(iteratorStart, lineSleeepService.changeMarkedIntoObject(line, iteratorStart));
             } else {
                 map.put(iteratorStart, new Image(line, iteratorStart));
@@ -85,10 +84,10 @@ public class GivingListOfObjects {
             if (alteringLineService.thereIsAMark(line)) {
                 line = alteringLineService.alterLine(line);
             }
-            if (Configuration.INSTANCE.getConfigurationFile().isUnableThreedSleep() && lineSleepService.thereIsAMark(line)) {
+            if (lineSleepService.thereIsAMark(line)) {
                 map.put(iteratorStart, lineSleepService.changeMarkedIntoObject(line, iteratorStart));
                 iteratorStart++;
-            } else if (Configuration.INSTANCE.getConfigurationFile().isUnableThreedSleep() && wordSleepService.thereIsAMark(line)) {
+            } else if (wordSleepService.thereIsAMark(line)) {
                 List<ShowingObjectInterface> list = wordSleepService.changeMarkedIntoObject(line, iteratorStart);
                 for (ShowingObjectInterface objectInterface : list) {
                     map.put(iteratorStart, objectInterface);

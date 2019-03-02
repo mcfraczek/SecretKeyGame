@@ -8,10 +8,12 @@ public class SleepMarker extends Marker {
 
     @Override
     public void show() {
-        try {
-            Thread.sleep(sleep);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (configuration.isUnableThreedSleep()) {
+            try {
+                Thread.sleep(sleep);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 

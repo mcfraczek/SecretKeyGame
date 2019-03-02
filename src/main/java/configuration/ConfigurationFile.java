@@ -1,4 +1,4 @@
-package main.java.confuguration;
+package main.java.configuration;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 

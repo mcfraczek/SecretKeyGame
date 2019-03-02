@@ -1,4 +1,4 @@
-package main.java.confuguration;
+package main.java.configuration;
 
 import com.thoughtworks.xstream.XStream;
 import main.java.talePath.TalePath;
@@ -15,7 +15,10 @@ public enum Configuration {
     }
 
     private ConfigurationFile getConfiguration() {
+        Class<?>[] classes = new Class[]{ConfigurationFile.class};
         XStream xStream = new XStream();
+        XStream.setupDefaultSecurity(xStream);
+        xStream.allowTypes(classes);
         xStream.processAnnotations(ConfigurationFile.class);
         File configurationFile = TalePath.getTalePath().resolve("configuration.xml").toFile();
         return (ConfigurationFile) xStream.fromXML(configurationFile);
