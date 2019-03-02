@@ -34,7 +34,6 @@ public class PathEstabishing {
     public static Path setTalePathFromConfigurationFile() {
         String startFrom = Configuration.INSTANCE.getConfigurationClass().getStartFromThisFile();
         Path talePath = TalePath.getTalePath();
-        System.out.println(startFrom);
         Path returningPath = null;
         try {
             Optional<Path> first = Files.walk(talePath).filter(p -> p.getFileName().toString().equals(startFrom)).findFirst();
