@@ -8,6 +8,7 @@ import main.java.logic.services.objectServices.alreringLine.IntroducingUser;
 import main.java.objects.interfaces.ShowingObjectInterface;
 import main.java.talePath.PathEstabishing;
 import main.java.talePath.pathDispatching.PathDispatching;
+import main.java.talePath.pathDispatching.Saving;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -55,11 +56,20 @@ public class TaleMachine {
                 object.show();
             }
             String answer = scanner.next();
+            if (answer.trim().equals("save")) {
+                try {
+                    Saving.saveGame(talePath);
+                } catch (Exception e) {
+                    System.out.println("Failed to save the game");
+                }
+                System.out.println("Game saved");
+                answer = scanner.next();
+            }
             if (answer.trim().equals("back")) {
                 talePath = talePath.getParent();
                 back = true;
                 continue;
-            }
+            } else
             talePath = changeTalePath(talePath, answer);
         }
         scanner.close();

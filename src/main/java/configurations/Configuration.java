@@ -4,14 +4,17 @@ import com.thoughtworks.xstream.XStream;
 import main.java.talePath.TalePath;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
 
 import static main.java.configurations.InitializeXStream.initializeXStream;
 
 public enum Configuration {
     INSTANCE;
     private final XStream xStream = initializeXStream();
-    private final ConfigurationClass configurationClass = getConfigurationClass();
     private final DevConfigurationClass devConfigurationClass = getDevConfigurationClass();
+    private final ConfigurationClass configurationClass = getConfigurationClass();
 
     private ConfigurationClass getConfigurationClass() {
         xStream.processAnnotations(ConfigurationClass.class);
@@ -34,4 +37,13 @@ public enum Configuration {
     }
 
 
+    public void saveConfiguration() {
+        OutputStream outputStream = null;
+        try {
+            outputStream = Files.newOutputStream(TalePath.getTalePath().resolve("configuration.xml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        xStream.toXML(configurationClass, outputStream);
+    }
 }

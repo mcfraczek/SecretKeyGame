@@ -28,8 +28,6 @@ public class PathEstabishing {
         return path.toString().endsWith(".choice");
     }
 
-
-
     public Path getChoicePath() {
         return choicePath;
     }
