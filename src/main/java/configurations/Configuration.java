@@ -7,24 +7,26 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 import static main.java.configurations.InitializeXStream.initializeXStream;
 
 public enum Configuration {
     INSTANCE;
     private final XStream xStream = initializeXStream();
+    private final Path configurationPath = TalePath.getTalePath().getParent().resolve("configurations");
     private final DevConfigurationClass devConfigurationClass = getDevConfigurationClass();
     private final ConfigurationClass configurationClass = getConfigurationClass();
 
     private ConfigurationClass getConfigurationClass() {
         xStream.processAnnotations(ConfigurationClass.class);
-        File configurationFile = TalePath.getTalePath().resolve("configuration.xml").toFile();
+        File configurationFile = configurationPath.resolve("configuration.xml").toFile();
         return (ConfigurationClass) xStream.fromXML(configurationFile);
     }
 
     private DevConfigurationClass getDevConfigurationClass() {
         xStream.processAnnotations(DevConfigurationClass.class);
-        File configurationFile = TalePath.getTalePath().resolve("dev_configuration.xml").toFile();
+        File configurationFile = configurationPath.resolve("dev_configuration.xml").toFile();
         return (DevConfigurationClass) xStream.fromXML(configurationFile);
     }
 
@@ -40,7 +42,7 @@ public enum Configuration {
     public void saveConfiguration() {
         OutputStream outputStream = null;
         try {
-            outputStream = Files.newOutputStream(TalePath.getTalePath().resolve("configuration.xml"));
+            outputStream = Files.newOutputStream(configurationPath.resolve("configuration.xml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
