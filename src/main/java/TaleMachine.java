@@ -56,7 +56,7 @@ public class TaleMachine {
                 object.show();
             }
             String answer = scanner.next();
-            if (answer.trim().equals("save")) {
+            if (answer.trim().toLowerCase().equals("save")) {
                 try {
                     Saving.saveGame(talePath);
                 } catch (Exception e) {
@@ -65,12 +65,30 @@ public class TaleMachine {
                 System.out.println("Game saved");
                 answer = scanner.next();
             }
-            if (answer.trim().equals("back")) {
+            if (answer.trim().toLowerCase().equals("delete")) {
+                try {
+                    Saving.deleteSave();
+                } catch (Exception e) {
+                    System.out.println("Deleting save failed");
+                }
+                System.out.println("Save deleted");
+                answer = scanner.next();
+            }
+            if (answer.trim().toLowerCase().equals("back")) {
                 talePath = talePath.getParent();
                 back = true;
                 continue;
-            } else
-            talePath = changeTalePath(talePath, answer);
+            }
+            if (answer.trim().toLowerCase().equals("exit")) {
+                scanner.close();
+                return;
+            } else {
+                while (Files.notExists(talePath.resolve(answer))) {
+                    System.out.println("Wrong answer");
+                    answer = scanner.next();
+                }
+                talePath = changeTalePath(talePath, answer);
+            }
         }
         scanner.close();
     }
