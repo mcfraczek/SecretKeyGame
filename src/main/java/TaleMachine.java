@@ -7,6 +7,7 @@ import main.java.logic.GivingListOfObjects;
 import main.java.logic.services.objectServices.alreringLine.IntroducingUser;
 import main.java.objects.interfaces.ShowingObjectInterface;
 import main.java.talePath.PathEstabishing;
+import main.java.talePath.pathDispatching.PathDispatching;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,6 +15,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class TaleMachine {
+
     private static boolean thereIsDirectory(Path talePath) {
         return !Files.notExists(talePath);
     }
@@ -26,9 +28,11 @@ public class TaleMachine {
         Map<Integer, ShowingObjectInterface> objectMap = null;
         boolean back = false;
         IntroducingUser.introduceUser(scanner);
-        if (!Configuration.INSTANCE.getDevConfiguration().getStartFromThisFile().equals("default")) {
-            talePath = PathEstabishing.setTalePathFromConfigurationFile();
+        PathDispatching pathDispatching = new PathDispatching();
+        if (pathDispatching.thereIsDispatch()) {
+            talePath = pathDispatching.dispatchedTalePath();
         }
+
         while (thereIsDirectory(talePath)) {
             Path gamePath = null;
             Path imagePath = null;
