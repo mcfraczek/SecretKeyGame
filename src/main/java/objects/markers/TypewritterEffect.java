@@ -24,7 +24,7 @@ public class TypewritterEffect extends Marker implements SettingFirstWord {
     @Override
     public void show() {
         if (word.isEmpty()) {
-            if (configuration.isUnableThreedSleep()) {
+            if (!configuration.isDisableThreadSleep()) {
                 try {
                     Thread.sleep(sleep);
                 } catch (InterruptedException e) {
@@ -36,7 +36,7 @@ public class TypewritterEffect extends Marker implements SettingFirstWord {
             word.chars()
                     .mapToObj(c -> String.valueOf((char) c))
                     .forEach(w -> {
-                        if (configuration.isUnableThreedSleep()) {
+                        if (!configuration.isDisableThreadSleep()) {
                             try {
                                 Thread.sleep(sleep);
                             } catch (InterruptedException e) {

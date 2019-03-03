@@ -9,6 +9,6 @@ public class TalePath {
     private static String taleDirectory = "tale";
 
     public static Path getTalePath() {
-        return userDir.resolve(taleDirectory);
+        return userDir.getParent().getParent().resolve(taleDirectory);
     }
 }

@@ -1,24 +1,24 @@
-package main.java.configuration;
+package main.java.configurations.devConfiguration;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("configuration")
-public class ConfigurationClass {
-    @XStreamAlias("unable_threed_sleep")
-    private final boolean unableThreedSleep;
+public class DevConfigurationClass {
+    @XStreamAlias("disable_thread_sleep")
+    private final boolean disableThreadSleep;
     @XStreamAlias("back_brings_everything")
     private final boolean backBringsEverything;
     @XStreamAlias("start_from_this_file")
     private final String startFromThisFile;
 
-    public ConfigurationClass(boolean unableThreedSleep, boolean backBringsEverything, String startFromThisFile) {
-        this.unableThreedSleep = unableThreedSleep;
+    public DevConfigurationClass(boolean disableThreadSleep, boolean backBringsEverything, String startFromThisFile) {
+        this.disableThreadSleep = disableThreadSleep;
         this.backBringsEverything = backBringsEverything;
         this.startFromThisFile = startFromThisFile;
     }
 
-    public boolean isUnableThreedSleep() {
-        return unableThreedSleep;
+    public boolean isDisableThreadSleep() {
+        return disableThreadSleep;
     }
 
 

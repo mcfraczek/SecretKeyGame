@@ -1,7 +1,7 @@
 package main.java;
 
 
-import main.java.configuration.Configuration;
+import main.java.configurations.devConfiguration.DevConfiguration;
 import main.java.consoleClearing.ClearingConsole;
 import main.java.logic.GivingListOfObjects;
 import main.java.logic.services.objectServices.alreringLine.IntroducingUser;
@@ -26,7 +26,7 @@ public class TaleMachine {
         Map<Integer, ShowingObjectInterface> objectMap = null;
         boolean back = false;
         IntroducingUser.introduceUser(scanner);
-        if (!Configuration.INSTANCE.getConfigurationClass().getStartFromThisFile().equals("default")) {
+        if (!DevConfiguration.INSTANCE.getDevConfigurationClass().getStartFromThisFile().equals("default")) {
             talePath = PathEstabishing.setTalePathFromConfigurationFile();
         }
         while (thereIsDirectory(talePath)) {
@@ -39,7 +39,7 @@ public class TaleMachine {
                 object.show();
             }
             PathEstabishing pathEstabishing = new PathEstabishing(talePath).invoke();
-            if (!back || Configuration.INSTANCE.getConfigurationClass().isBackBringsEverything()) {
+            if (!back || DevConfiguration.INSTANCE.getDevConfigurationClass().isBackBringsEverything()) {
                 gamePath = pathEstabishing.getGamePath();
             }
             imagePath = pathEstabishing.getImagePath();
