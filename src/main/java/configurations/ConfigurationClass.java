@@ -6,6 +6,8 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 public class ConfigurationClass {
     @XStreamAlias("speed")
     private final double speed;
+    @XStreamAlias("save_path")
+    private String savePath;
 
     public ConfigurationClass(double speed) {
         this.speed = speed;
@@ -13,5 +15,13 @@ public class ConfigurationClass {
 
     public double getSpeed() {
         return speed;
+    }
+
+    public String getSavePath() {
+        return savePath;
+    }
+
+    public void setSavePath(String savePath) {
+        this.savePath = savePath;
     }
 }

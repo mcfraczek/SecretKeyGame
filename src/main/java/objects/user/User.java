@@ -12,7 +12,7 @@ public class User {
         if (INSTANCE == null) {
             synchronized (User.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new User(name);
+                    INSTANCE = new User(setFirstLetter(name));
                 }
             }
         }
@@ -21,6 +21,10 @@ public class User {
 
     public static User getINSTANCE() {
         return INSTANCE;
+    }
+
+    private static String setFirstLetter(String name) {
+        return name.replace(name.charAt(0), Character.toUpperCase(name.charAt(0)));
     }
 
     public String getName() {
