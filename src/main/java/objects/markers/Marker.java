@@ -1,20 +1,23 @@
 package main.java.objects.markers;
 
 
-import main.java.configurations.devConfiguration.DevConfiguration;
-import main.java.configurations.devConfiguration.DevConfigurationClass;
+import main.java.configurations.Configuration;
+import main.java.configurations.ConfigurationClass;
+import main.java.configurations.DevConfigurationClass;
 import main.java.objects.interfaces.LineObject;
 
 public abstract class Marker extends LineObject {
-    protected DevConfigurationClass configuration = DevConfiguration.INSTANCE.getDevConfigurationClass();
+    protected DevConfigurationClass devConfiguration = Configuration.INSTANCE.getDevConfiguration();
+    protected ConfigurationClass configuration = Configuration.INSTANCE.getConfiguration();
     protected Long sleep;
+    protected boolean threadSleepAnabled = !Configuration.INSTANCE.getDevConfiguration().isDisableThreadSleep();
 
     public Marker(Long sleep, int line) {
-        this.sleep = sleep;
         this.line = line;
-    }
-
-    public Marker(Long sleep) {
-        super();
+        double speed = configuration.getSpeed();
+        if (speed <= 0) {
+            speed = 0.1;
+        }
+        this.sleep = (long) (sleep / speed);
     }
 }

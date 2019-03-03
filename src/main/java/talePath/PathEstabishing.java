@@ -1,6 +1,6 @@
 package main.java.talePath;
 
-import main.java.configurations.devConfiguration.DevConfiguration;
+import main.java.configurations.Configuration;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -32,7 +32,7 @@ public class PathEstabishing {
     }
 
     public static Path setTalePathFromConfigurationFile() {
-        String startFrom = DevConfiguration.INSTANCE.getDevConfigurationClass().getStartFromThisFile();
+        String startFrom = Configuration.INSTANCE.getDevConfiguration().getStartFromThisFile();
         Path talePath = TalePath.getTalePath();
         Path returningPath = null;
         try {

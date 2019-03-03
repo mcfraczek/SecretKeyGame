@@ -8,7 +8,7 @@ public class SleepMarker extends Marker {
 
     @Override
     public void show() {
-        if (!configuration.isDisableThreadSleep()) {
+        if (threadSleepAnabled) {
             try {
                 Thread.sleep(sleep);
             } catch (InterruptedException e) {

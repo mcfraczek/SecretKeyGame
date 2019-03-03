@@ -1,8 +1,8 @@
-package main.java.configurations.devConfiguration;
+package main.java.configurations;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-@XStreamAlias("configuration")
+@XStreamAlias("dev_configuration")
 public class DevConfigurationClass {
     @XStreamAlias("disable_thread_sleep")
     private final boolean disableThreadSleep;
