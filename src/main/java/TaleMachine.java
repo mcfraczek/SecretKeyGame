@@ -33,7 +33,6 @@ public class TaleMachine {
         if (pathDispatching.thereIsDispatch()) {
             talePath = pathDispatching.dispatchedTalePath();
         }
-
         while (thereIsDirectory(talePath)) {
             Path gamePath = null;
             Path imagePath = null;
@@ -91,7 +90,6 @@ public class TaleMachine {
             if (!back) {
                 talePath = changeTalePath(talePath, answer);
             }
-
         }
         scanner.close();
     }
