@@ -7,6 +7,7 @@ import main.java.logic.GivingListOfObjects;
 import main.java.logic.services.objectServices.alreringLine.IntroducingUser;
 import main.java.objects.interfaces.ShowingObjectInterface;
 import main.java.talePath.PathEstabishing;
+import main.java.talePath.TalePath;
 import main.java.talePath.pathDispatching.PathDispatching;
 import main.java.talePath.pathDispatching.Saving;
 
@@ -76,13 +77,18 @@ public class TaleMachine {
                     answer = scanner.next();
                 }
                 if (answer.trim().toLowerCase().equals("back")) {
-                    talePath = talePath.getParent();
-                    back = true;
+                    if (talePath.getParent().compareTo(TalePath.getTalePath()) > 0) {
+                        talePath = talePath.getParent();
+                        back = true;
+                    } else {
+                        System.out.println("Can't go any further. Type something useful");
+                        answer = scanner.next();
+                    }
                 }
                 if (answer.trim().toLowerCase().equals("exit")) {
                     scanner.close();
                     return;
-                } else if (noSuchAnswer(answer)) {
+                } else if (noSuchAnswer(answer, talePath)) {
                     System.out.println("Wrong answer");
                     answer = scanner.next();
                 }
@@ -94,9 +100,10 @@ public class TaleMachine {
         scanner.close();
     }
 
-    private static boolean noSuchAnswer(String answer) {
+    private static boolean noSuchAnswer(String answer, Path talePath) {
         return !answer.trim().toLowerCase().equals("save") && !answer.trim().toLowerCase().equals("delete")
-                && !answer.trim().toLowerCase().equals("back") && !answer.trim().toLowerCase().equals("exit");
+                && !answer.trim().toLowerCase().equals("back") && !answer.trim().toLowerCase().equals("exit")
+                && Files.notExists(talePath.resolve(answer));
     }
 
 }
