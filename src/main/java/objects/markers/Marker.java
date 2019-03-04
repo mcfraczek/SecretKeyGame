@@ -2,9 +2,9 @@ package main.java.objects.markers;
 
 
 import main.java.configurations.Configuration;
-import main.java.objects.interfaces.LineObject;
+import main.java.objects.interfaces.MarginAvalible;
 
-public abstract class Marker extends LineObject {
+public abstract class Marker extends MarginAvalible {
 
     protected Long sleep;
     protected boolean threadSleepAnabled = !Configuration.INSTANCE.getDevConfiguration().isDisableThreadSleep();

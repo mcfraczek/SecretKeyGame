@@ -1,19 +1,26 @@
 package main.java.objects.markers;
 
-import main.java.objects.interfaces.SettingFirstWord;
+import main.java.objects.interfaces.SettingFirstOrLastWord;
 
-public class TypewritterEffect extends Marker implements SettingFirstWord {
+public class TypewritterEffect extends Marker implements SettingFirstOrLastWord {
     private boolean lastWordInLine;
+    private boolean firstWordInLine;
     private String word;
 
     public TypewritterEffect(Long sleep, String word, int line) {
         super(sleep, line);
         this.word = word;
+        marginSize = configuration.getGameMarginSize();
     }
 
     @Override
     public void thisIsLastWord() {
         this.lastWordInLine = true;
+    }
+
+    @Override
+    public void thisIsFirstWord() {
+        this.firstWordInLine = true;
     }
 
     @Override
@@ -31,8 +38,10 @@ public class TypewritterEffect extends Marker implements SettingFirstWord {
                     e.printStackTrace();
                 }
             }
-
         } else {
+            if (firstWordInLine) {
+                System.out.print(makeMargin(marginSize));
+            }
             word.chars()
                     .mapToObj(c -> String.valueOf((char) c))
                     .forEach(w -> {

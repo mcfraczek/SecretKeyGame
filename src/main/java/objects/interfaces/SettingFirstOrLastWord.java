@@ -1,7 +1,8 @@
 package main.java.objects.interfaces;
 
-public interface SettingFirstWord {
+public interface SettingFirstOrLastWord {
     void thisIsLastWord();
 
+    void thisIsFirstWord();
     boolean getFirstWord();
 }

@@ -101,6 +101,9 @@ public class TaleMachine {
     }
 
     private static boolean noSuchAnswer(String answer, Path talePath) {
+        if (answer.contains("\\W")) {
+            return false;
+        }
         return !answer.trim().toLowerCase().equals("save") && !answer.trim().toLowerCase().equals("delete")
                 && !answer.trim().toLowerCase().equals("back") && !answer.trim().toLowerCase().equals("exit")
                 && Files.notExists(talePath.resolve(answer));

@@ -3,6 +3,7 @@ package main.java.logic.services.objectServices.markedLetter;
 import main.java.logic.services.objectServices.markedInterfaces.GeneralMarkService;
 import main.java.logic.services.objectServices.patternFactory.PatternFactory;
 import main.java.objects.Word;
+import main.java.objects.interfaces.SettingFirstOrLastWord;
 import main.java.objects.interfaces.ShowingObjectInterface;
 import main.java.objects.markers.TypewritterEffect;
 
@@ -39,18 +40,23 @@ public class WordSleepSercice implements MarkedLetterService {
                     word = matcher.group(2);
                 }
                 TypewritterEffect typewritterEffect = new TypewritterEffect(howLongToSleep, word, iteratorStart);
-                if (i == strings.size() - 1) {
-                    typewritterEffect.thisIsLastWord();
-                }
+                setFirstOrLastWord(strings, i, typewritterEffect);
                 objectsList.add(typewritterEffect);
             } else {
                 Word word = new Word(strings.get(i), iteratorStart);
-                if (i == strings.size() - 1) {
-                    word.thisIsLastWord();
-                }
+                setFirstOrLastWord(strings, i, word);
                 objectsList.add(word);
             }
         }
         return objectsList;
+    }
+
+    private void setFirstOrLastWord(List<String> strings, int i, SettingFirstOrLastWord settingFirstOrLastWord) {
+        if (i == 0) {
+            settingFirstOrLastWord.thisIsFirstWord();
+        }
+        if (i == strings.size() - 1) {
+            settingFirstOrLastWord.thisIsLastWord();
+        }
     }
 }
