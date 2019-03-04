@@ -55,52 +55,50 @@ public class TaleMachine {
             for (ShowingObjectInterface object : objectMap.values()) {
                 object.show();
             }
+            back = false;
             String answer = scanner.next();
-            while (noSuchAnswer(answer, talePath)) {
-                System.out.println("Wrong answer");
-                answer = scanner.next();
-            }
-            if (answer.trim().toLowerCase().equals("save")) {
-                try {
-                    Saving.saveGame(talePath);
-                } catch (Exception e) {
-                    System.out.println("Failed to save the game");
+            while (!back && Files.notExists(talePath.resolve(answer))) {
+                if (answer.trim().toLowerCase().equals("save")) {
+                    try {
+                        Saving.saveGame(talePath);
+                    } catch (Exception e) {
+                        System.out.println("Failed to save the game");
+                    }
+                    System.out.println("Game saved");
+                    answer = scanner.next();
                 }
-                System.out.println("Game saved");
-                answer = scanner.next();
-            }
-            if (answer.trim().toLowerCase().equals("delete")) {
-                try {
-                    Saving.deleteSave();
-                } catch (Exception e) {
-                    System.out.println("Deleting save failed");
+                if (answer.trim().toLowerCase().equals("delete")) {
+                    try {
+                        Saving.deleteSave();
+                    } catch (Exception e) {
+                        System.out.println("Deleting save failed");
+                    }
+                    System.out.println("Save deleted");
+                    answer = scanner.next();
                 }
-                System.out.println("Save deleted");
-                answer = scanner.next();
-            }
-            if (answer.trim().toLowerCase().equals("back")) {
-                talePath = talePath.getParent();
-                back = true;
-                continue;
-            }
-            if (answer.trim().toLowerCase().equals("exit")) {
-                scanner.close();
-                return;
-            } else {
-                while (Files.notExists(talePath.resolve(answer))) {
+                if (answer.trim().toLowerCase().equals("back")) {
+                    talePath = talePath.getParent();
+                    back = true;
+                }
+                if (answer.trim().toLowerCase().equals("exit")) {
+                    scanner.close();
+                    return;
+                } else if (noSuchAnswer(answer)) {
                     System.out.println("Wrong answer");
                     answer = scanner.next();
                 }
+            }
+            if (!back) {
                 talePath = changeTalePath(talePath, answer);
             }
+
         }
         scanner.close();
     }
 
-    private static boolean noSuchAnswer(String answer, Path talePath) {
+    private static boolean noSuchAnswer(String answer) {
         return !answer.trim().toLowerCase().equals("save") && !answer.trim().toLowerCase().equals("delete")
-                && !answer.trim().toLowerCase().equals("back") && !answer.trim().toLowerCase().equals("exit")
-                && !Files.exists(talePath.resolve(answer));
+                && !answer.trim().toLowerCase().equals("back") && !answer.trim().toLowerCase().equals("exit");
     }
 
 }
