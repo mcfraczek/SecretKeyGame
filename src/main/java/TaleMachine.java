@@ -56,6 +56,10 @@ public class TaleMachine {
                 object.show();
             }
             String answer = scanner.next();
+            while (noSuchAnswer(answer, talePath)) {
+                System.out.println("Wrong answer");
+                answer = scanner.next();
+            }
             if (answer.trim().toLowerCase().equals("save")) {
                 try {
                     Saving.saveGame(talePath);
@@ -91,6 +95,12 @@ public class TaleMachine {
             }
         }
         scanner.close();
+    }
+
+    private static boolean noSuchAnswer(String answer, Path talePath) {
+        return !answer.trim().toLowerCase().equals("save") && !answer.trim().toLowerCase().equals("delete")
+                && !answer.trim().toLowerCase().equals("back") && !answer.trim().toLowerCase().equals("exit")
+                && !Files.exists(talePath.resolve(answer));
     }
 
 }
