@@ -104,7 +104,7 @@ public class GivingListOfObjects {
     public static Map<Integer, ShowingObjectInterface> getPanel() {
         Map<Integer, ShowingObjectInterface> map = new TreeMap<>();
         List<String> lines = Panel.INSTANCE.getPanel();
-        checkForGameObjects(lines, map, 0);
+        checkForImageObjects(lines, map, 0);
         return map;
     }
 }
